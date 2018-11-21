@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Product= ({ item }) => (
-    <option value={item.name}>
-    {item.name}
+const Product = ({ items }) => (
+
+    <option value={items.name}>
+    {items.name}
   </option>
+
 )
+
 export default Product
