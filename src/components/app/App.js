@@ -5,6 +5,7 @@ import Footer from "../footer/footer.js"
 //import CartItems from '../cartItems/cartItems.js'
 import CartItemsList from "../CartItemsList/CartItemsList.js"
 import AddItem from "../addItem/addItem.js"
+import Total from '../total/total'
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +38,35 @@ class App extends Component {
       ]
     }
   }
+  
+  onAddItem = ({ myEle, quantity }) => {
+    let newProduct = {...myEle}
+    let cartCopy = [...this.state.cart]
+    for (let i = 0; i< this.state.cart.length; i++) {
+      if(this.state.cart[i].product.id === newProduct.id){
+        let itemClone = {...this.state.cart[i]}
+        itemClone.quantity = itemClone.quantity + parseInt(quantity)
+        cartCopy[i] = itemClone
+        this.setState({
+          ...this.state,
+          cart: cartCopy
+        })
+        return true
+      }
+    }
+    const maxId = this.state.cart.reduce((acc, el) => Math.max(acc, el.id), 0)
+    let newItem = {
+      id: maxId + 1,
+      product: newProduct,
+      quantity: quantity
+    }
+    cartCopy.push(newItem)
+    this.setState({
+      ...this.state,
+      cart:cartCopy
+    })
+    return true
+  }
 
   render() {
     return (
@@ -57,7 +87,10 @@ class App extends Component {
             <CartItemsList items={this.state.cart} />
           </div>
           <div>
-            <AddItem items={this.state.cart} />
+            <Total items={this.state.cart} />
+          </div>
+          <div>
+            <AddItem onAddItem={this.onAddItem} />
           </div>
         </div>
         <Footer />

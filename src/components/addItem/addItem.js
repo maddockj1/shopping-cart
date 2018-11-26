@@ -23,9 +23,9 @@ class AddItem extends Component {
   onSubmit = (e) => {
     e.preventDefault()
     let myEle = {}
-    for (let i = 0; i < this.state.product.length; i++) {
-      if (this.state.item === this.state.product[i].name) {
-        myEle = this.state.product[i]
+    for (let i = 0; i < this.state.products.length; i++) {
+      if (this.state.item === this.state.products[i].name) {
+        myEle = this.state.products[i]
       }
     }
     const { quantity } = this.state
