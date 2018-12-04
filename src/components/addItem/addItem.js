@@ -28,6 +28,7 @@ class AddItem extends Component {
         myEle = this.state.products[i]
       }
     }
+
     const { quantity } = this.state
     const { onAddItem } = this.props
     onAddItem({ myEle, quantity })
@@ -50,17 +51,16 @@ class AddItem extends Component {
   render() {
     return (
       <div>
+        <h2>Add an item!</h2>
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Quantity</label>
-            <input />
+            <input type='number' value={this.state.quantity} onChange={this.onQuantityChange} />
           </div>
           <div>
             <label>Products</label>
-            <select>
-              {this.state.products.map((x, y) => (
-                <Product key={y} id={y} items={x} />
-              ))}
+            <select id="product" onChange={this.onItemChange}>
+              {this.state.products.map((x, y) => <Product id={y} key={y} items={x} />)}
             </select>
           </div>
           <input type="submit" />
